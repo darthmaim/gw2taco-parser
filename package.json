@@ -1,0 +1,66 @@
+{
+  "name": "gw2taco-parser",
+  "version": "1.0.0",
+  "description": "Parse GW2 TacO marker data.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "test": "npm run test:coverage --silent",
+    "test:coverage": "nyc --all --include=src --reporter=lcov --reporter=text-summary --report-dir=coverage npm run test:mocha",
+    "test:mocha": "cross-env BABEL_ENV=commonjs mocha --compilers js:babel-core/register tests/**/*.spec.js",
+    "clean": "rimraf lib es",
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "prepublish": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darthmaim/gw2taco-parser.git"
+  },
+  "keywords": [
+    "gw2",
+    "taco"
+  ],
+  "author": "darthmaim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/darthmaim/gw2taco-parser/issues"
+  },
+  "homepage": "https://github.com/darthmaim/gw2taco-parser#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babili": "^0.1.4",
+    "chai": "^3.5.0",
+    "cross-env": "^5.0.1",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.2.0",
+    "nyc": "^10.2.0",
+    "rimraf": "^2.6.1"
+  },
+  "babel": {
+    "env": {
+      "commonjs": {
+        "presets": [
+          [
+            "es2015",
+            {
+              "modules": "commonjs"
+            }
+          ]
+        ]
+      },
+      "es": {
+        "presets": [
+          [
+            "es2015",
+            {
+              "modules": false
+            }
+          ]
+        ]
+      }
+    }
+  }
+}
